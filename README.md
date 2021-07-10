@@ -1,6 +1,8 @@
 # hackdtech
 Dtech Hackathon July 09 2021
 
+Project created about reproductive health
+
 5 branches:
 
 1.carolina
@@ -12,3 +14,4 @@ Dtech Hackathon July 09 2021
 4.suomo
 
 5.samia
+
