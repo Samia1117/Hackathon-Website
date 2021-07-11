@@ -3,7 +3,8 @@ class Home extends Component {
   render() {
     return (
       <div className="Home">
-        This is the homepage.
+          Welcome to our application.
+          <p>we created this application to help young girls gain knowledge about menstral health</p>
       </div>
     )
   }
