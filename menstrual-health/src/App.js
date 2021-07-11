@@ -55,14 +55,14 @@ function App() {
       
       </section>
       <Switch>
+          <Route path="/mapping" component = {Mapping}>  
+              </Route>
           <Route path="/information" component = {Information}>
-          </Route>
+            </Route>
           <Route path="/" component = {Home}>  
           </Route>
-          <Route path="/mapping" component = {Mapping}>  
-          </Route>
-        </Switch>
-        </Router>
+      </Switch>
+      </Router>
 
     </div>
   );
