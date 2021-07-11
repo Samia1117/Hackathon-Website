@@ -17,11 +17,30 @@
     <div id ="map"></div>
     <script>
         function initMap(){
+            // Map options
+            var location1 = {lat:36.0047581,lng:-78.95251150000001};
             var options = {
-                zoom:11,
-                center: {lat:36.0047581,lng:-78.95251150000001}
+                zoom:13,
+                center: location1
             };
-            var map = new google.maps.Map(document.getElementById('map'), options);
+            // new map
+            var map1 = new google.maps.Map(document.getElementById('map'), options);
+            // add marker
+            var location2 = {lat:36.0050735,lng:-78.9500214};
+            var marker1 = new google.maps.Marker({
+                position: location1,
+                map: map1
+            });
+            var marker2 = new google.maps.Marker({
+                position: location2,
+                map: map1
+            });
+            var location3 = {lat:36.0040319,lng:-78.9500214};
+            var marker3 = new google.maps.Marker({
+                position: location3,
+                map: map1
+            });
+            
         }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfIU78gDkH9ojIVo72EzdUf6rDxEIVSs&callback=initMap">
