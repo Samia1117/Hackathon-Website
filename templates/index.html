@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfIU78gDkH9ojIVo72EzdUf6rDxEIVSs&libraries=places"></script>
     <title>My Google Map</title>
     <style>
         #map{
@@ -13,38 +14,167 @@
     </style>
 </head>
 <body>
-    <h1>My Google Map</h1>
+    <h1 id = "h1">Hospitals Nearby</h1>
     <div id ="map"></div>
+    <div id ="msg"></div>
+    
+    <input id="searchTextField" type="text" size="50"></input>
     <script>
+    function initialize() {
+        var input = document.getElementById('searchTextField');
+        new google.maps.places.AutoComplete(input);
+    }
+
+    function haversine_distance(mk1, mk2) {
+        var R = 3958.8; // Radius of the Earth in miles
+        var rlat1 = mk1.position.lat() * (Math.PI/180); // Convert degrees to radians
+        var rlat2 = mk2.position.lat() * (Math.PI/180); // Convert degrees to radians
+        var difflat = rlat2-rlat1; // Radian difference (latitudes)
+        var difflon = (mk2.position.lng()-mk1.position.lng()) * (Math.PI/180); // Radian difference (longitudes)
+        var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+        return d;
+    }
+        var map1;
         function initMap(){
-            // Map options
+            // Map options: My current location
             var location1 = {lat:36.0047581,lng:-78.95251150000001};
             var options = {
-                zoom:13,
+                zoom:15,
                 center: location1
             };
             // new map
             var map1 = new google.maps.Map(document.getElementById('map'), options);
-            // add marker
-            var location2 = {lat:36.0050735,lng:-78.9500214};
-            var marker1 = new google.maps.Marker({
-                position: location1,
-                map: map1
+            // Listen for click on Map
+            google.maps.event.addListener(map1, 'click', function(event){
+                var thisloc = event.latLng
+                //addMarker({coords: event.latLng, map: map1});
+                var mk = new google.maps.Marker({position: thisloc, map: map1});
+                var distance = haversine_distance(mk1, mk);
+                document.getElementById('msg').innerHTML = "<h2>" + distance.toFixed(2) + " miles away</h2>";
+                /*for (var j=0; j<latlongs.length; j++){
+                    loc1lat = latlongs[j]['lat'];
+                    loc1lng = latlongs[j]['lng'];
+                    if(loc1lat==thisloc['lat'] && loc1lng==thisloc['lng']){
+                        var mk = new google.maps.Marker({position: thisloc, map: map1});
+                        var line = new google.maps.Polyline({path: [location1, thisloc], map: map1});
+                        var distance = haversine_distance(mk1, mk);
+                        document.getElementById('msg').innerHTML = "<h2> This Hospital is" + distance.toFixed(2) + " miles away</h2>";
+                    }
+                    else{
+                        document.getElementById('msg').innerHTML = "Not a hospital";
+                    }
+
+                }*/
             });
-            var marker2 = new google.maps.Marker({
-                position: location2,
-                map: map1
-            });
-            var location3 = {lat:36.0040319,lng:-78.9500214};
-            var marker3 = new google.maps.Marker({
-                position: location3,
-                map: map1
-            });
+            google.maps.event.addDomListener(window, 'load', initialize);
+
+            // add marker: Lenox Baker Children's Hospital
+           var location2 = {lat:36.0050735,lng:-78.9500214};
+            // add marker: Pruithealth Durham      
+           var location3 = {lat:36.0040319,lng:-78.9500214};
+           // add marker: Duke Center for Living
+           var location4 ={lat: 36.0012967, lng: -78.95569069999999};
+           //add marker: Duke Health Center at Morreene Road
+           var location5 = {lat: 36.0093473, lng:-78.95514039999999 };
+           //add marker: Duke Perinatal Consultants of Durham
+           var location6 = {lat: 36.0092684, lng:-78.9448144 };
+           //add marker: Duke Sports Sciences Institute
+           var location7 = {lat: 36.00087189999999, lng:-78.9569862 };
+           // add marker: Duke University Health System
+           var location8 = {lat: 36.0070331, lng:-78.9375709 };
+           // add marker: Duke Medicine Pavilion
+           var location9 = {lat: 36.0061302, lng:-78.9366138 };
+           // add marker: Duke University Hospital
+           var location10 = {lat: 36.0043984, lng:-78.9360846 };
+
+           var latlongs = [location1, location2, location3, location4, location5, location6, location7, location8, location9, location10];
+           
+           // Add marker array
+           markers = [{coords: location1, map: map1, infowindow:'<h3> My Location </h3>'},
+                {coords: location2, map: map1, infowindow: '<h5> Lenox Baker Childrens Hospital, 0.14 miles away </h5>'},
+                {coords: location3, map: map1, infowindow:'<h5> Pruitthealth Durham, 0.10 miles away</h5>'}, 
+                {coords: location4, map: map1, infowindow: '<h5> Duke Center for Living, 0.30 miles away </h5>'},
+                {coords: location5, map: map1, infowindow: '<h5> Duke Health Center at Morreene Road, 0.71 miles away </h5>'},
+                {coords: location6, map: map1, infowindow: '<h5> Duke Perinatal Consultants of Durham,  0.53 miles away </h5>'},
+                {coords: location7, map: map1, infowindow: '<h5> Duke Sports Sciences Institute, 0.37 miles away </h5>'},
+                {coords: location8, map: map1, infowindow: '<h5> Duke University Health System, 0.85 miles away </h5>'},
+                {coords: location9, map: map1, infowindow: '<h5> Duke Medicine Pavilion, 0.77 miles away </h5>'},
+                {coords: location10, map: map1, infowindow: '<h5> Duke Clinic,  0.92 miles awawy</h5>'}
+            ]
             
+           // Add marker function
+           function addMarker(params){
+               var marker = new google.maps.Marker({
+                   position: params.coords,
+                   map: params.map
+                });
+                if (params.infowindow){
+                    var infowindow = new google.maps.InfoWindow({
+                        content: params.infowindow
+                    });
+                    marker.addListener('click', function(){
+                        infowindow.open(params.map, marker);
+                    });
+                }
+           }
+            
+            var mk1 = new google.maps.Marker({position: location1, map: map1}); //initial location
+            for (var i=0; i<markers.length; i++ ){
+                addMarker(markers[i])
+            }
+            var mk2 = new google.maps.Marker({position: location2, map: map});
+            var mk3 = new google.maps.Marker({position: location3, map: map});
+            var mk4 = new google.maps.Marker({position: location4, map: map});
+
+            //var line2 = new google.maps.Polyline({path: [location1, location2], map: map1});
+            //var line3 = new google.maps.Polyline({path: [location1, location3], map: map1});
+            var line4 = new google.maps.Polyline({path: [location1, location4], map: map1});
+            // Calculate and display the distance between markers
+            /*
+            var distance2 = haversine_distance(mk1, mk2);
+            document.getElementById('msg').innerHTML = "" + distance2.toFixed(2) + " miles away";
+            
+            var distance3 = haversine_distance(mk1, mk3);
+            document.getElementById('msg').innerHTML = "" + distance3.toFixed(2) + " miles away";
+            */
+            var distance4 = haversine_distance(mk1, mk4);
+            document.getElementById('msg').innerHTML = "" + distance4.toFixed(2) + " miles away";
+            
+            document.getElementById("h1").style.color = "#009688";
         }
-    </script>
+
+
+
+        
+        let directionsService = new google.maps.DirectionsService();
+        let directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(map1); // Existing map object displays directions
+        // Create route from existing points used for markers
+        const route = {
+            origin: location1,
+            destination: location4,
+            travelMode: 'DRIVING'
+        }
+        directionsService.route(route,function(response, status) { // anonymous function to capture directions
+            if (status !== 'OK') {
+                window.alert('Directions request failed due to ' + status);
+                return;
+            } else {
+                directionsRenderer.setDirections(response); // Add route to the map
+                var directionsData = response.routes[0].legs[0]; // Get data about the mapped route
+                if (!directionsData) {
+                    window.alert('Directions request failed');
+                    return;
+                } else {
+                    document.getElementById('msg').innerHTML += " Driving distance is " + directionsData.distance.text + " (" + directionsData.duration.text + ").";
+                }
+            }
+        });
+
+    </script> 
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfIU78gDkH9ojIVo72EzdUf6rDxEIVSs&callback=initMap">
     </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfIU78gDkH9ojIVo72EzdUf6rDxEIVSs&callback=initMap"></script>
     </script>
     
 
