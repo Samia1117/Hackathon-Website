@@ -3,6 +3,7 @@ import './App.css';
 import React from 'react';
 import Information from './components/information';
 import Home from './components/home';
+import Mapping from './components/mapping';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -15,6 +16,7 @@ import {
 function App() {
   return (
     <div className="App">
+      <Router>
           <section className="header">
       <section className="header-top">
         <section className="header-top__logo">
@@ -22,48 +24,46 @@ function App() {
         </section>
         <section className="header-top__navbar">
           <section className="header-top__navigation">
-          <Router>
         <section className = "navbar">
-          <a className="navbar-item">
+          <p className="navbar-item">
               <NavLink 
                 className="navbar-item"
                 exact to="/" 
                 activeClassName="selected">
                 Home
               </NavLink>
-          </a>
-          <a className="navbar-item">
+          </p>
+          <p className="navbar-item">
               <NavLink
-                to="/information" 
+                to="./information" 
                 activeClassName="selected">
-                Information
+                Information for me
               </NavLink>
-</a>
+        </p>
+        <p className="navbar-item">
+              <NavLink
+                to="./mapping" 
+                activeClassName="selected">
+                Find a Health Center
+              </NavLink>
+        </p>
         </section>
-        <Switch>
-          <Route path="/information">
-            <Information />
-          </Route>
-          <Route path="/">  
-            <Home />
-          </Route>
-        </Switch>
-        </Router>
           </section>
           <hr className="header-top__seperator" />
         </section>
       </section>
+      
       </section>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+          <Route path="/information" component = {Information}>
+          </Route>
+          <Route path="/" component = {Home}>  
+          </Route>
+          <Route path="/mapping" component = {Mapping}>  
+          </Route>
+        </Switch>
+        </Router>
+
     </div>
   );
 }
