@@ -13,6 +13,6 @@ Further description of our technology:
 It is an informational and recommendation based website to help women by directing them to with resources 
 such as nearby hospital locations, links to CDC guidelines about pregnancy and menstruation, etc.
 The website also attempts to make recommendations based on the particular information that the user inputs on search bars.
-
-However, this aspect is left incomplete, as we did not have time to incorporate a feature such as a full-fledged recommendation engine.
+However, this of the website aspect is incomplete, as we did not have time to incorporate 
+a feature such as a full-fledged recommendation engine.
 
