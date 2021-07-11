@@ -17,11 +17,43 @@ div {
 }
 
 .Home {
-  color: red;
+  padding: 15px;
+  color:#009688;
+  margin-left: .5rem;
+  font-size: x-large;
+}
+#hehe{
+  display: block;
+  margin-left: 30%;
+  margin-right: 0%;
+  /* padding: 10px; */
+  float: center;
+}
 
+#other{
+  max-width: 800px;
+  border-radius: 5px;
+  display: block;
+  margin-left: 30%;
+  margin-right: 0%;
+  /* padding: 10px; */
+  float: center;
+  
+}
+#title {
+  max-width: 300px;
+  border-radius: 5px;
+  display: block;
+  margin-left: 2%;
+  margin-right: 0%;
+  /* padding: 10px; */
+  float: left;
 }
 .Information {
-  color: rgb(149, 90, 90);
+  padding: 15px;
+  color:#009688;
+  margin-left: .5rem;
+  font-size: large;
 }
 
 .Mapping {
